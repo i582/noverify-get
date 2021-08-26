@@ -35,6 +35,8 @@ require RR_COMPOSER_INSTALL;
 
 use NoVerify\Downloader;
 
+const VENDOR_PATH = __DIR__;
+
 function main() {
   try {
     $opts = getopt("", ["version:", "versions"]);
