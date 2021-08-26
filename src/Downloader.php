@@ -93,9 +93,8 @@ class Downloader {
         join(", ", self::VERSIONS));
     }
 
-
-    @mkdir("bin");
-    file_put_contents("./bin/noverify-$version.zip", $contents);
+    @mkdir("vendor/bin");
+    file_put_contents("./vendor/bin/noverify-$version.zip", $contents);
   }
 
   /**
@@ -104,14 +103,14 @@ class Downloader {
   public static function extract(string $bin_folder, string $version): bool {
     $zip = new ZipArchive;
 
-    $archive_name = "./bin/noverify-$version.zip";
+    $archive_name = "./vendor/bin/noverify-$version.zip";
     $res          = $zip->open($archive_name);
     if ($res === false) {
       throw new Exception("Archive $archive_name not opened");
     }
 
-    $zip->extractTo("./bin");
-    system("chmod +x ./bin/noverify");
+    $zip->extractTo("./vendor/bin");
+    system("chmod +x ./vendor/bin/noverify");
     return true;
   }
 }
