@@ -93,7 +93,7 @@ class Downloader {
         join(", ", self::VERSIONS));
     }
 
-    file_put_contents("noverify-$version.zip", $contents);
+    file_put_contents("./noverify-$version.zip", $contents);
   }
 
   /**
@@ -102,7 +102,7 @@ class Downloader {
   public static function extract(string $version): bool {
     $zip = new ZipArchive;
 
-    $archive_name = "noverify-$version.zip";
+    $archive_name = "./noverify-$version.zip";
     $res          = $zip->open($archive_name);
     if ($res === false) {
       throw new Exception("Archive $archive_name not opened");
