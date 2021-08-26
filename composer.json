@@ -13,7 +13,9 @@
     "php": ">=7.4",
     "ext-zip": "*"
   },
-
+  "bin": [
+    "bin/noverify-get"
+  ],
   "autoload": {
     "psr-4": {"NoVerify\\": "src/"}
   }
