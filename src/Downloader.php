@@ -93,6 +93,8 @@ class Downloader {
         join(", ", self::VERSIONS));
     }
 
+
+    @mkdir("bin");
     file_put_contents("./bin/noverify-$version.zip", $contents);
   }
 
