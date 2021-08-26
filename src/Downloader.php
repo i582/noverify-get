@@ -49,23 +49,23 @@ class Downloader {
   /**
    * @throws Exception
    */
-  public static function process(string $version) {
+  public static function process(string $bin_folder, string $version) {
     if ($version === "latest") {
       $version = self::VERSIONS[count(self::VERSIONS) - 1];
     }
 
     echo "Start download v$version version...\n";
-    self::download($version);
+    self::download($bin_folder, $version);
     echo "Successful download v$version version\n";
     echo "Start extract v$version version...\n";
-    self::extract($version);
+    self::extract($bin_folder, $version);
     echo "Successful extracted v$version version\n";
   }
 
   /**
    * @throws Exception
    */
-  public static function download(string $version) {
+  public static function download(string $bin_folder, string $version) {
     if ($version === "0.2.0" || $version === "0.1.0") {
       throw new Exception("Version v$version cannot be downloaded");
     }
@@ -93,25 +93,23 @@ class Downloader {
         join(", ", self::VERSIONS));
     }
 
-    file_put_contents(VENDOR_PATH . "/noverify-$version.zip", $contents);
+    file_put_contents("./bin/noverify-$version.zip", $contents);
   }
 
   /**
    * @throws Exception
    */
-  public static function extract(string $version): bool {
+  public static function extract(string $bin_folder, string $version): bool {
     $zip = new ZipArchive;
 
-    $archive_name = VENDOR_PATH . "/noverify-$version.zip";
+    $archive_name = "./bin/noverify-$version.zip";
     $res          = $zip->open($archive_name);
     if ($res === false) {
       throw new Exception("Archive $archive_name not opened");
     }
 
-    $zip->extractTo(VENDOR_PATH);
-    $zip->close();
-
-    system("chmod +x " . VENDOR_PATH . "/noverify");
+    $zip->extractTo("./bin");
+    system("chmod +x ./bin/noverify");
     return true;
   }
 }

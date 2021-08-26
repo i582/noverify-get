@@ -35,9 +35,8 @@ require RR_COMPOSER_INSTALL;
 
 use NoVerify\Downloader;
 
-const VENDOR_PATH = __DIR__;
-
 function main() {
+  $bin_folder = str_replace("autoload.php",  "", RR_COMPOSER_INSTALL) . "bin";
   try {
     $opts = getopt("", ["version:", "versions"]);
     if ($opts === false) {
@@ -61,7 +60,7 @@ function main() {
       die(1);
     }
 
-    Downloader::process($version);
+    Downloader::process($bin_folder, $version);
   } catch (Exception $e) {
     echo $e->getMessage() . "\n";
     die(1);
