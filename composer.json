@@ -1,0 +1,20 @@
+{
+  "name": "vkcom/noverify-cli",
+  "description": "description",
+  "minimum-stability": "stable",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Petr Makhnev",
+      "email": "mr.makhneff@gmail.com"
+    }
+  ],
+  "require": {
+    "php": ">=7.4",
+    "ext-zip": "*"
+  },
+
+  "autoload": {
+    "psr-4": {"NoVerify\\": "src/"}
+  }
+}

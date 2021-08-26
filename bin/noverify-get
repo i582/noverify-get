@@ -1,0 +1,39 @@
+#!/usr/bin/env php
+<?php
+
+require_once "../vendor/autoload.php";
+
+use NoVerify\Downloader;
+
+function main() {
+  try {
+    $opts = getopt("", ["version:", "versions"]);
+    if ($opts === false) {
+      echo "error CLI";
+    }
+
+    if (isset($opts["versions"])) {
+      echo "Available version for download:\n  ";
+      echo join(",\n  ", Downloader::VERSIONS) . "\n";
+      return;
+    }
+
+    if (!isset($opts["version"])) {
+      $opts["version"] = "latest";
+    }
+
+    $version = $opts["version"];
+    $version = trim($version);
+    if ($version === "") {
+      echo "Error: empty version\n";
+      die(1);
+    }
+
+    Downloader::process($version);
+  } catch (Exception $e) {
+    echo $e->getMessage() . "\n";
+    die(1);
+  }
+}
+
+main();
